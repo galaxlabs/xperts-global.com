@@ -262,6 +262,7 @@ body {
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
   body {
     @apply bg-background text-foreground;
@@ -290,11 +291,12 @@ body {
 }
 
 /* Prevent horizontal overflow */
-* {
-  box-sizing: border-box;
-}
-
 .container {
   max-width: 100%;
   overflow-x: hidden;
+}
+
+/* Ensure header has highest z-index */
+header {
+  z-index: 100 !important;
 }

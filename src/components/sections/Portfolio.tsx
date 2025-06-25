@@ -6,10 +6,19 @@ import { Button } from '@/components/ui/button';
 
 const Portfolio: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start center", "end center"]
   });
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((value) => {
+      setScrollProgress(Math.round(value * 100));
+    });
+    return unsubscribe;
+  }, [scrollYProgress]);
 
   const projects = [
     {
@@ -55,7 +64,7 @@ const Portfolio: React.FC = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 lg:py-32 bg-background overflow-hidden" ref={containerRef}>
+    <section id="portfolio" className="py-20 lg:py-32 bg-background relative" ref={containerRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -73,18 +82,49 @@ const Portfolio: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Progress Line - Fixed Position */}
+        <div className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden lg:block">
+          <div className="relative">
+            {/* Background Line */}
+            <div className="w-1 h-64 bg-border/50 rounded-full"></div>
+            
+            {/* Progress Line */}
+            <motion.div
+              className="absolute top-0 left-0 w-1 bg-gradient-to-b from-primary via-blue-500 to-purple-500 rounded-full origin-top"
+              style={{
+                height: `${scrollProgress * 2.64}px`, // 264px * progress percentage
+              }}
+            />
+            
+            {/* Progress Indicator */}
+            <div className="absolute -right-16 top-0 flex flex-col items-center">
+              <div className="bg-background border border-border rounded-lg px-3 py-2 text-sm font-bold text-foreground shadow-lg mb-2">
+                {scrollProgress}%
+              </div>
+              <div className="text-xs text-muted-foreground text-center">
+                Portfolio<br />Progress
+              </div>
+            </div>
+            
+            {/* Start Marker */}
+            <div className="absolute -left-2 -top-1 w-2 h-2 bg-primary rounded-full"></div>
+            
+            {/* End Marker */}
+            <div className="absolute -left-2 bottom-0 w-2 h-2 bg-border rounded-full"></div>
+          </div>
+        </div>
+
         {/* Projects */}
-        <div className="space-y-32">
+        <div className="space-y-32 lg:pl-16">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
-            const yOffset = useTransform(scrollYProgress, [0, 1], [0, -50 * (index + 1)]);
             
             return (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 className="relative"
               >
@@ -141,10 +181,7 @@ const Portfolio: React.FC = () => {
                   </div>
 
                   {/* Image Card */}
-                  <motion.div
-                    style={{ y: yOffset }}
-                    className={`relative ${!isEven ? 'lg:col-start-1 lg:row-start-1' : ''}`}
-                  >
+                  <div className={`relative ${!isEven ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
                     <div className="relative group">
                       {/* Stacked Cards Effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl transform rotate-3 scale-105 opacity-30 group-hover:rotate-6 transition-transform duration-500"></div>
@@ -173,7 +210,7 @@ const Portfolio: React.FC = () => {
                         </div>
                       </motion.div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -186,7 +223,7 @@ const Portfolio: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="text-center mt-20 lg:ml-16"
         >
           <div className="bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-2xl p-12 border border-primary/20">
             <h3 className="text-3xl font-bold text-foreground mb-6">
