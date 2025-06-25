@@ -20,6 +20,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Animated dotted background pattern */
@@ -276,4 +277,24 @@ body {
 .dark {
   --primary: 220 91% 56%; /* Lighter blue for dark mode */
   --primary-foreground: 0 0% 9%;
+}
+
+/* Fix for select dropdown positioning */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
+/* Ensure proper stacking context */
+.fixed {
+  z-index: 50;
+}
+
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
 }

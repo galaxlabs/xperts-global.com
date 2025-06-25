@@ -197,17 +197,17 @@ const Footer: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <h3 className="text-lg font-semibold text-foreground mb-6">Contact</h3>
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-8">
                   <div className="flex items-center space-x-3">
-                    <Mail className="h-4 w-4 text-primary" />
+                    <Mail className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-muted-foreground text-sm">hello@devagency.com</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Phone className="h-4 w-4 text-primary" />
+                    <Phone className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-muted-foreground text-sm">+1 (555) 123-4567</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <MapPin className="h-4 w-4 text-primary mt-0.5" />
+                    <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-muted-foreground text-sm">
                       123 Tech Street<br />Silicon Valley, CA
                     </span>
@@ -226,24 +226,25 @@ const Footer: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex items-center space-x-2 text-green-600"
                     >
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4 flex-shrink-0" />
                       <span className="text-sm">Successfully subscribed!</span>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleNewsletterSubmit} className="flex space-x-2">
+                    <form onSubmit={handleNewsletterSubmit} className="space-y-3">
                       <Input
                         type="email"
                         placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1"
+                        className="w-full"
                         required
                       />
-                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                         <Button 
                           type="submit" 
                           size="sm"
                           disabled={isSubmitting}
+                          className="w-full"
                         >
                           {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                         </Button>
@@ -270,7 +271,7 @@ const Footer: React.FC = () => {
             <div className="text-muted-foreground text-sm">
               © 2025 DevAgency. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
               <motion.a 
                 href="#" 
                 className="text-muted-foreground hover:text-primary transition-colors"
