@@ -300,3 +300,15 @@ body {
 header {
   z-index: 100 !important;
 }
+
+/* Progress bar specific styles */
+.progress-bar-container {
+  z-index: 90 !important;
+}
+
+/* Ensure content doesn't overlap with progress bar */
+@media (min-width: 1024px) {
+  .lg\:pl-24 {
+    padding-left: 6rem; /* 96px - enough space for progress bar */
+  }
+}
