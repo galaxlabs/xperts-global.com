@@ -8,7 +8,6 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navItems = [
     { label: 'Home', id: 'hero' },
@@ -23,11 +22,6 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
-      // Calculate overall scroll progress
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(Math.min(progress, 100));
 
       // Determine active section with better detection
       const sections = navItems.map(item => item.id);
@@ -85,8 +79,6 @@ const Header: React.FC = () => {
 
   // Calculate individual section progress
   const getSectionProgress = (sectionIndex: number) => {
-    const totalSections = navItems.length;
-    const sectionSize = 100 / totalSections;
     const currentSectionIndex = navItems.findIndex(item => item.id === activeSection);
     
     if (sectionIndex < currentSectionIndex) {
@@ -151,37 +143,14 @@ const Header: React.FC = () => {
                 )}
                 whileHover={{ scale: 1.2 }}
               >
-                {/* Section Label */}
+                {/* Section Label - Only on Hover */}
                 <div className={cn(
-                  "absolute left-8 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-none",
-                  activeSection === item.id
-                    ? "bg-primary text-primary-foreground opacity-100"
-                    : "bg-background border border-border text-foreground shadow-lg"
+                  "absolute left-8 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-none bg-background border border-border text-foreground shadow-lg"
                 )}>
                   {item.label}
                 </div>
               </motion.button>
             ))}
-          </div>
-          
-          {/* Overall Progress Percentage */}
-          <div className="absolute -right-16 top-0 flex flex-col items-center">
-            <div className="bg-background border border-border rounded-lg px-3 py-2 text-sm font-bold text-foreground shadow-lg mb-2">
-              {Math.round(scrollProgress)}%
-            </div>
-            <div className="text-xs text-muted-foreground text-center">
-              Progress
-            </div>
-          </div>
-
-          {/* Current Section Indicator */}
-          <div className="absolute -right-16 top-16 flex flex-col items-center">
-            <div className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-sm font-bold shadow-lg mb-2">
-              {navItems.find(item => item.id === activeSection)?.label || 'Home'}
-            </div>
-            <div className="text-xs text-muted-foreground text-center">
-              Current
-            </div>
           </div>
         </div>
       </div>
