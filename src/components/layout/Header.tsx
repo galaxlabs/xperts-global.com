@@ -29,21 +29,39 @@ const Header: React.FC = () => {
       const progress = (window.scrollY / totalHeight) * 100;
       setScrollProgress(Math.min(progress, 100));
 
-      // Determine active section
+      // Determine active section with better detection
       const sections = navItems.map(item => item.id);
       let currentSection = 'hero';
 
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
+      // Get all section elements and their positions
+      const sectionElements = sections.map(id => {
+        const element = document.getElementById(id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          const elementTop = rect.top + window.scrollY;
-          const elementHeight = rect.height;
-          const scrollPosition = window.scrollY + window.innerHeight / 2;
+          return {
+            id,
+            top: rect.top + window.scrollY,
+            bottom: rect.top + window.scrollY + rect.height,
+            element
+          };
+        }
+        return null;
+      }).filter(Boolean);
 
-          if (scrollPosition >= elementTop && scrollPosition < elementTop + elementHeight) {
-            currentSection = sectionId;
-            break;
+      // Find the section that's currently most visible
+      const scrollPosition = window.scrollY + window.innerHeight / 3; // Use top third of viewport
+
+      for (let i = 0; i < sectionElements.length; i++) {
+        const section = sectionElements[i];
+        const nextSection = sectionElements[i + 1];
+        
+        if (section) {
+          // If we're in the last section or before the next section starts
+          if (!nextSection || scrollPosition < nextSection.top) {
+            if (scrollPosition >= section.top) {
+              currentSection = section.id;
+              break;
+            }
           }
         }
       }
@@ -65,24 +83,62 @@ const Header: React.FC = () => {
     }
   };
 
+  // Calculate individual section progress
+  const getSectionProgress = (sectionIndex: number) => {
+    const totalSections = navItems.length;
+    const sectionSize = 100 / totalSections;
+    const currentSectionIndex = navItems.findIndex(item => item.id === activeSection);
+    
+    if (sectionIndex < currentSectionIndex) {
+      return 100; // Completed sections
+    } else if (sectionIndex === currentSectionIndex) {
+      // Current section progress
+      const sectionElement = document.getElementById(activeSection);
+      if (sectionElement) {
+        const rect = sectionElement.getBoundingClientRect();
+        const sectionTop = rect.top + window.scrollY;
+        const sectionHeight = rect.height;
+        const scrollInSection = Math.max(0, window.scrollY - sectionTop);
+        const sectionProgress = Math.min(100, (scrollInSection / sectionHeight) * 100);
+        return sectionProgress;
+      }
+      return 0;
+    } else {
+      return 0; // Future sections
+    }
+  };
+
   return (
     <>
       {/* Progress Bar - Fixed Position */}
       <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[90] hidden lg:block">
         <div className="relative">
           {/* Background Line */}
-          <div className="w-1 h-80 bg-border/30 rounded-full"></div>
+          <div className="w-1 h-96 bg-border/30 rounded-full"></div>
           
-          {/* Progress Line */}
-          <motion.div
-            className="absolute top-0 left-0 w-1 bg-gradient-to-b from-primary via-blue-500 to-purple-500 rounded-full origin-top"
-            style={{
-              height: `${(scrollProgress / 100) * 320}px`, // 320px = 80 * 4 (h-80 = 320px)
-            }}
-          />
+          {/* Section Progress Lines */}
+          {navItems.map((item, index) => {
+            const sectionHeight = 384 / navItems.length; // 384px = h-96
+            const yPosition = index * sectionHeight;
+            const progress = getSectionProgress(index);
+            
+            return (
+              <motion.div
+                key={`progress-${item.id}`}
+                className="absolute left-0 w-1 bg-gradient-to-b from-primary via-blue-500 to-purple-500 rounded-full origin-top"
+                style={{
+                  top: `${yPosition}px`,
+                  height: `${(progress / 100) * sectionHeight}px`,
+                }}
+                initial={{ height: 0 }}
+                animate={{ height: `${(progress / 100) * sectionHeight}px` }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              />
+            );
+          })}
           
           {/* Section Indicators */}
-          <div className="absolute -left-2 top-0 space-y-[42px]"> {/* 320px / 7 sections ≈ 45px spacing */}
+          <div className="absolute -left-2 top-0 space-y-0 flex flex-col justify-between h-96">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.id}
@@ -108,13 +164,23 @@ const Header: React.FC = () => {
             ))}
           </div>
           
-          {/* Progress Percentage */}
+          {/* Overall Progress Percentage */}
           <div className="absolute -right-16 top-0 flex flex-col items-center">
             <div className="bg-background border border-border rounded-lg px-3 py-2 text-sm font-bold text-foreground shadow-lg mb-2">
               {Math.round(scrollProgress)}%
             </div>
             <div className="text-xs text-muted-foreground text-center">
               Progress
+            </div>
+          </div>
+
+          {/* Current Section Indicator */}
+          <div className="absolute -right-16 top-16 flex flex-col items-center">
+            <div className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-sm font-bold shadow-lg mb-2">
+              {navItems.find(item => item.id === activeSection)?.label || 'Home'}
+            </div>
+            <div className="text-xs text-muted-foreground text-center">
+              Current
             </div>
           </div>
         </div>
