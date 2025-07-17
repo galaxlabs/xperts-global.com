@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center space-x-3">
                     <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                    <span className="text-muted-foreground text-sm">operations@xperts-global.com</span>
+                    <span className="text-muted-foreground text-sm">success@xperts-global.com</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="h-4 w-4 text-primary flex-shrink-0" />
