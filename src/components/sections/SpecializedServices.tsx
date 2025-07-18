@@ -1,11 +1,75 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Database, Settings, Layers, Mail } from 'lucide-react';
+import { Database, Settings, Layers, Mail, Code, Shield, TrendingUp, Activity, UserCheck, Zap, Smartphone, Cloud,   } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 const SpecializedServices: React.FC = () => {
   const specializedServices = [
+    {
+      icon: Code,
+      title: 'Custom Web Application Development',
+      description: 'Build tailored web applications using modern stacks like Node.js, Python, and Vue.js to streamline processes and elevate user experience.',
+      color: 'text-indigo-600',
+      bg: 'bg-indigo-50',
+      gradient: 'from-indigo-500 to-blue-500',
+    },
+    {
+      icon: Shield,
+      title: 'Secure API Development',
+      description: 'Design and implement secure, scalable REST and GraphQL APIs for seamless integration between services and applications.',
+      color: 'text-red-600',
+      bg: 'bg-red-50',
+      gradient: 'from-red-500 to-pink-500',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Business Intelligence Dashboards',
+      description: 'Create dynamic BI dashboards using tools like Metabase, Superset, and Frappe Charts for data-driven decision making.',
+      color: 'text-yellow-600',
+      bg: 'bg-yellow-50',
+      gradient: 'from-yellow-500 to-orange-500',
+    },
+    {
+      icon: Cloud,
+      title: 'Cloud Deployment & DevOps',
+      description: 'Automate deployments using Docker, GitHub Actions, and CI/CD pipelines with hosting on AWS, DigitalOcean, or Render.',
+      color: 'text-cyan-600',
+      bg: 'bg-cyan-50',
+      gradient: 'from-cyan-500 to-blue-500',
+    },
+    {
+      icon: Smartphone,
+      title: 'Progressive Web Apps (PWA)',
+      description: 'Develop fast, reliable, and installable web apps with offline access and push notifications using modern PWA standards.',
+      color: 'text-teal-600',
+      bg: 'bg-teal-50',
+      gradient: 'from-teal-500 to-green-500',
+    },
+    {
+      icon: Zap,
+      title: 'Automation & Workflow Engineering',
+      description: 'Design automated business workflows using tools like Zapier, Frappe Workflows, and custom Python scripts.',
+      color: 'text-pink-600',
+      bg: 'bg-pink-50',
+      gradient: 'from-pink-500 to-rose-500',
+    },
+    {
+      icon: UserCheck,
+      title: 'Role-Based Access Control (RBAC)',
+      description: 'Implement secure RBAC systems for web and ERP applications with fine-grained permission management.',
+      color: 'text-gray-700',
+      bg: 'bg-gray-100',
+      gradient: 'from-gray-500 to-slate-500',
+    },
+    {
+      icon: Activity,
+      title: 'Real-Time Systems & WebSockets',
+      description: 'Enable real-time communication and event-driven architectures using Socket.IO and Frappe Realtime APIs.',
+      color: 'text-lime-600',
+      bg: 'bg-lime-50',
+      gradient: 'from-lime-500 to-green-400',
+    },    
     {
       icon: Database,
       title: 'Salesforce Integration',
@@ -24,7 +88,7 @@ const SpecializedServices: React.FC = () => {
     },
     {
       icon: Layers,
-      title: 'Frappe Solutions',
+      title: 'Frappe Custom Solutions',
       description: 'ERPNext and custom Frappe framework development for comprehensive business management solutions tailored to your industry needs.',
       color: 'text-green-600',
       bg: 'bg-green-50',
@@ -32,7 +96,7 @@ const SpecializedServices: React.FC = () => {
     },
     {
       icon: Mail,
-      title: 'Email HTML Design',
+      title: 'HTML Email Design',
       description: 'Professional email template design and development with responsive layouts, cross-client compatibility, and high conversion rates.',
       color: 'text-orange-600',
       bg: 'bg-orange-50',

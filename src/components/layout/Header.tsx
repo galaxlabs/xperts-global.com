@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import logo from '@/assets/logo.png'; // ✅ correct path if using alias `@`
+
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -173,10 +175,12 @@ const Header: React.FC = () => {
               className="flex items-center space-x-2 cursor-pointer"
               onClick={() => scrollToSection('hero')}
             >
-              <div className="p-2 bg-primary rounded-lg">
-                <Code2 className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">DevAgency</span>
+              <img
+                src={logo}
+                alt="Xperts Global Logo"
+                className="h-10 w-auto object-contain"
+              />
+              <span className="text-xl font-bold text-foreground"></span>
             </motion.div>
 
             {/* Desktop Navigation */}

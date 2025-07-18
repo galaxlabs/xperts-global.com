@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/hooks/use-toast';
+import logo from '@/assets/logo.png';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -110,16 +111,21 @@ const Footer: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="flex items-center space-x-2 mb-6">
-                  <div className="p-2 bg-primary rounded-lg">
-                    <Code2 className="h-6 w-6 text-primary-foreground" />
-                  </div>
-                  <span className="text-xl font-bold text-foreground">DevAgency</span>
-                </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+             <div
+                className="flex items-center space-x-2 mb-6 cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                <img
+                  src={logo}
+                  alt="Xperts Global Logo"
+                  className="h-10 w-auto object-contain"
+                />
+                <span className="text-xl font-bold text-foreground">Xperts Global</span>
+              </div>
+                {/* <p className="text-muted-foreground mb-6 leading-relaxed">
                   Your trusted partner for digital transformation. We create innovative solutions 
                   that drive business growth and success.
-                </p>
+                </p> */}
                 <div className="flex space-x-4">
                   {socialLinks.map((social, index) => {
                     const IconComponent = social.icon;
@@ -209,7 +215,7 @@ const Footer: React.FC = () => {
                   <div className="flex items-start space-x-3">
                     <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-muted-foreground text-sm">
-                      123 Tech Street<br />Silicon Valley, CA
+                    615 Park St , <br />Des Moines , IA 50309
                     </span>
                   </div>
                 </div>
@@ -269,7 +275,7 @@ const Footer: React.FC = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-muted-foreground text-sm">
-              © 2025 DevAgency. All rights reserved.
+              © 2025 Xperts Global. All rights reserved.
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <motion.a 

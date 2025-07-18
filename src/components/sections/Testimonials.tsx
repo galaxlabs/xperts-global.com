@@ -16,7 +16,7 @@ const Testimonials: React.FC = () => {
       company: 'TechStartup Inc',
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       rating: 5,
-      quote: 'DevAgency transformed our entire business process with their custom software solution. The team was professional, responsive, and delivered beyond our expectations. Our productivity increased by 40% within the first month.',
+      quote: 'Xperts Global transformed our entire business process with their custom software solution. The team was professional, responsive, and delivered beyond our expectations. Our productivity increased by 40% within the first month.',
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ const Testimonials: React.FC = () => {
       company: 'DataFlow Systems',
       avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       rating: 5,
-      quote: 'The Salesforce integration project was handled with exceptional expertise. DevAgency not only delivered on time but also provided comprehensive training and ongoing support. Highly recommended for any enterprise-level implementation.',
+      quote: 'The Salesforce integration project was handled with exceptional expertise. Xperts Global not only delivered on time but also provided comprehensive training and ongoing support. Highly recommended for any enterprise-level implementation.',
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ const Testimonials: React.FC = () => {
       company: 'Global Logistics Ltd',
       avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       rating: 5,
-      quote: 'Working with DevAgency on our Odoo ERP implementation was a game-changer. They understood our complex requirements and delivered a solution that streamlined our entire supply chain management.',
+      quote: 'Working with Xperts Global on our Odoo ERP implementation was a game-changer. They understood our complex requirements and delivered a solution that streamlined our entire supply chain management.',
     },
     {
       id: 4,
