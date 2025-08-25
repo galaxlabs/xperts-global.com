@@ -70,7 +70,7 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-20 lg:py-32 bg-background relative overflow-hidden">
+    <section id="testimonials" className="py-3 lg:py-40 bg-background relative overflow-none">
       {/* Testimonial Bubble Pattern */}
       <div className="absolute inset-0">
         <motion.div

@@ -98,124 +98,66 @@ const Services: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-20 lg:py-32 bg-muted/30 relative overflow-hidden">
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'linear',
-          }}
-          style={{
-            backgroundImage: 'linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-      </div>
+    // <section id="services" className="py-20 lg:py-32 bg-muted/30 relative overflow-hidden">
+<section id="services" className="py-24 bg-white">
+  <div className="container mx-auto px-6 lg:px-8 rounded-3xl py-16 lg:py-24 shadow-lg">
+    {/* Section Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        Our <span className="text-primary">Services</span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        We offer comprehensive technology solutions to help your business thrive in the digital age
+      </p>
+    </motion.div>
 
-      {/* Floating Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(8)].map((_, i) => (
+    {/* Services Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {services.map((service, index) => {
+        const Icon = service.icon;
+        return (
           <motion.div
-            key={i}
-            className="absolute w-4 h-4 bg-primary/10 rounded-full"
-            initial={{
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 50 - 25, 0],
-            }}
-            transition={{
-              duration: Math.random() * 8 + 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-      </div>
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            className={`rounded-2xl shadow-md p-6 hover:shadow-xl transition-all ${service.bg}`}
+          >
+            {/* Icon */}
+            <div className={`w-14 h-14 flex items-center justify-center rounded-xl ${service.bg} mb-5`}>
+              <Icon className={`w-7 h-7 ${service.color}`} />
+            </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 lg:pl-24">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Our <span className="text-primary">Services</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We offer comprehensive technology solutions to help your business thrive in the digital age
-          </p>
-        </motion.div>
+            {/* Title */}
+            <h3 className="text-lg font-semibold mb-3 text-gray-900">{service.title}</h3>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ 
-                  y: -10,
-                  transition: { duration: 0.3 }
-                }}
-                className="h-full group"
-              >
-                <Card className="h-full hover:shadow-2xl transition-all duration-500 border-0 shadow-md bg-card/80 backdrop-blur-sm overflow-hidden relative">
-                  {/* Gradient Background on Hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                  
-                  <CardHeader className="pb-4 relative z-10">
-                    <motion.div 
-                      className={`w-16 h-16 rounded-xl ${service.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                      whileHover={{ rotate: 5 }}
-                    >
-                      <IconComponent className={`h-8 w-8 ${service.color}`} />
-                    </motion.div>
-                    <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
-                      {service.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0 relative z-10">
-                    <CardDescription className="text-muted-foreground mb-6 leading-relaxed">
-                      {service.description}
-                    </CardDescription>
-                    <motion.div
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Button
-                        variant="ghost"
-                        onClick={scrollToContact}
-                        className="p-0 h-auto font-semibold text-primary hover:text-primary/80 hover:bg-transparent"
-                      >
-                        Learn More →
-                      </Button>
-                    </motion.div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+            {/* Description */}
+            <p className="text-gray-700 mb-6 leading-relaxed">{service.description}</p>
+
+            {/* Learn More */}
+            <Button
+              variant="ghost"
+              onClick={scrollToContact}
+              className="p-0 h-auto font-semibold text-primary hover:text-primary/80"
+            >
+              Learn More →
+            </Button>
+          </motion.div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+
   );
 };
 

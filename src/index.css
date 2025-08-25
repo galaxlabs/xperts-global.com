@@ -13,6 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body {
+  overflow-x: hidden; /* remove horizontal scroll */
+}
+
+
 html {
   scroll-behavior: smooth;
 }

@@ -105,7 +105,7 @@ const Header: React.FC = () => {
   return (
     <>
       {/* Progress Bar - Fixed Position */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[90] hidden lg:block">
+      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-[90] hidden lg:block">
         <div className="relative">
           {/* Background Line */}
           <div className="w-1 h-96 bg-border/30 rounded-full"></div>

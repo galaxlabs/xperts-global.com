@@ -51,7 +51,7 @@ const Portfolio: React.FC = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 lg:py-32 bg-background relative overflow-hidden" ref={containerRef}>
+    <section id="portfolio" className="py-10 mb-16 lg:py-20 bg-background relative" ref={containerRef}>
       {/* Circuit Pattern Background */}
       <div className="absolute inset-0">
         <motion.div
@@ -72,29 +72,6 @@ const Portfolio: React.FC = () => {
         />
       </div>
 
-      {/* Floating Code Blocks */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-12 h-8 bg-primary/5 rounded border border-primary/20"
-            initial={{
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-            }}
-            animate={{
-              y: [0, -50, 0],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: Math.random() * 12 + 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 3,
-            }}
-          />
-        ))}
-      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 lg:pl-24">
         {/* Section Header */}
@@ -114,7 +91,7 @@ const Portfolio: React.FC = () => {
         </motion.div>
 
         {/* Projects */}
-        <div className="space-y-32">
+        <div className="space-y-20 mb-20">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
             
